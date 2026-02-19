@@ -1,5 +1,6 @@
 import type { Resolvers } from "../generated/graphql.js";
 import pubsub from "../services/pubsub.js";
+import { decodeCursor, encodeCursor } from "../utils/pagination.js";
 import {
   AuthenticationError,
   ForbiddenError,
@@ -15,7 +16,7 @@ export const postResolvers: Resolvers = {
       const first = args.first ?? 10;
       const where = args.published != null ? { published: args.published } : {};
       const cursor = args.after
-        ? { id: Buffer.from(args.after, "base64").toString("utf-8") }
+        ? { id: decodeCursor(args.after) }
         : undefined;
 
       const [nodes, totalCount] = await Promise.all([
@@ -30,7 +31,7 @@ export const postResolvers: Resolvers = {
       ]);
 
       const edges = nodes.map((node) => ({
-        cursor: Buffer.from(node.id).toString("base64"),
+        cursor: encodeCursor(node.id),
         node,
       }));
 
