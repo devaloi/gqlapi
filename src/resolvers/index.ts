@@ -1,12 +1,14 @@
 import type { Resolvers } from "../generated/graphql.js";
 import { userResolvers } from "./user.resolver.js";
-import { postResolvers } from "./post.resolver.js";
+import { postResolvers, POST_CREATED, POST_UPDATED } from "./post.resolver.js";
 import { DateTimeScalar } from "./scalars.js";
 import {
   encodeCursor,
   decodeCursor,
   type ConnectionArgs,
 } from "../utils/pagination.js";
+import pubsub from "../services/pubsub.js";
+import { withFilter } from "graphql-subscriptions";
 
 const resolvers: Resolvers = {
   DateTime: DateTimeScalar,
@@ -18,6 +20,20 @@ const resolvers: Resolvers = {
     ...userResolvers.Mutation,
     ...postResolvers.Mutation,
   },
+  Subscription: {
+    postCreated: {
+      subscribe: () => pubsub.asyncIterator([POST_CREATED]),
+    },
+    postUpdated: {
+      subscribe: withFilter(
+        () => pubsub.asyncIterator([POST_UPDATED]),
+        (payload: { postUpdated: { authorId: string } }, variables) => {
+          if (!variables.authorId) return true;
+          return payload.postUpdated.authorId === variables.authorId;
+        },
+      ),
+    },
+  } as unknown as Resolvers["Subscription"],
   User: {
     posts: async (parent, args, context) => {
       const first = args.first ?? 10;
