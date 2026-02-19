@@ -5,10 +5,15 @@ export default defineConfig({
     globals: true,
     environment: "node",
     include: ["tests/**/*.test.ts"],
-    setupFiles: ["tests/setup.ts"],
     testTimeout: 15000,
     hookTimeout: 15000,
     pool: "forks",
     fileParallelism: false,
+    env: {
+      NODE_ENV: "test",
+      DATABASE_URL: "file:./test.db",
+      JWT_SECRET: "test-secret-key",
+      JWT_EXPIRES_IN: "1h",
+    },
   },
 });
