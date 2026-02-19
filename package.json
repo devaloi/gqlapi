@@ -1,0 +1,68 @@
+{
+  "name": "gqlapi",
+  "version": "1.0.0",
+  "description": "A GraphQL API with Apollo Server, schema-first design, type-safe resolvers via codegen, Prisma + SQLite, JWT auth, DataLoader, cursor-based pagination, and subscriptions",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "generate": "graphql-codegen",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "graphql",
+    "apollo-server",
+    "prisma",
+    "typescript",
+    "dataloader",
+    "subscriptions"
+  ],
+  "author": "devaloi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devaloi/gqlapi.git"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.13.0",
+    "@prisma/client": "^6.19.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "dataloader": "^2.2.3",
+    "express": "^4.22.1",
+    "graphql": "^16.12.0",
+    "graphql-subscriptions": "^2.0.0",
+    "graphql-tag": "^2.12.6",
+    "graphql-ws": "^5.16.2",
+    "jsonwebtoken": "^9.0.3",
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-resolvers": "^4.5.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^22.19.11",
+    "@types/ws": "^8.18.1",
+    "eslint": "^9.39.2",
+    "globals": "^15.15.0",
+    "prettier": "^3.8.1",
+    "prisma": "^6.19.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.0",
+    "vitest": "^3.2.4"
+  }
+}
