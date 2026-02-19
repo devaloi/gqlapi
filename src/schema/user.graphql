@@ -1,0 +1,22 @@
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  posts(first: Int, after: String): PostConnection!
+  createdAt: DateTime!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+extend type Query {
+  me: User
+  user(id: ID!): User
+}
+
+extend type Mutation {
+  signup(email: String!, password: String!, name: String!): AuthPayload!
+  login(email: String!, password: String!): AuthPayload!
+}
