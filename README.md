@@ -1,5 +1,7 @@
 # gqlapi
 
+[![CI](https://github.com/devaloi/gqlapi/actions/workflows/ci.yml/badge.svg)](https://github.com/devaloi/gqlapi/actions/workflows/ci.yml)
+
 A GraphQL API with Apollo Server, schema-first design, type-safe resolvers via codegen, Prisma + SQLite, JWT auth, DataLoader, cursor-based pagination, and subscriptions.
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)
